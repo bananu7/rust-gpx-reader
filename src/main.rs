@@ -8,7 +8,7 @@ use std::path::Path;
 use guitar_tabs::gpx;
 
 fn main() {
-    env_logger::init().unwrap();
+    env_logger::init();
 
     let args: Vec<_> = std::env::args().collect();
     let mut file_data = vec![];
@@ -25,5 +25,9 @@ fn main() {
         Ok(files) => files,
         Err(error) => panic!(error),
     };
-    println!("{:?}", files);
+ 
+    //println!("{:?}", files);
+    for f in files {
+        fs::write(f.file_name, f.file_data).expect("Unable to write file");
+    }
 }
